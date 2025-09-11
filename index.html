@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Informasi UKI</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/b67e368fa6.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="./assets/images/logo.png" type="image/png">
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="./assets/images/navbar.png" alt="">
+        <ul>
+            <li><a href="./index.html">Pendaftaran</a></li>
+            <li><a href="./informasi.html">Informasi</a></li>
+            <li><a href="./kata-mereka.html">Kata Mereka</a></li>
+            <li><a href="./tentang-kami.html">Tentang Kami</a></li>
+        </ul>
+    </div>
+
+    <main class="main">
+        <section class="content" id='foodList'>
+        </section>
+        <aside class="sidebar" id="cartList">
+            <div class="total-container">
+                <i class="fas fa-wallet total-icon"></i>
+                <p class="total-label">TOTAL</p>
+                <h1 class="total-price">Rp. 0</h1>
+            </div>
+            <div class="card-finish">
+                <button>ORDER SEKARANG</button>
+            </div>
+        </aside>
+    </main>
+    <script src="./script.js"></script>
+    <div id="custom-popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <div class="popup-body">
+                <h3>Mohon Lakukan Pembayaran</h3>
+                <p class="left-align-text">
+                    Silakan transfer ke rekening kami:<br>
+                    <strong>Bank BCA</strong><br>
+                    <strong>Nomor Rekening: 2521180678</strong><br>
+                    <strong>Atas Nama: Sulastri</strong>
+                </p>
+                <p class="left-align-text">
+                    Setelah transfer, mohon kirimkan bukti pembayaran dan konfirmasi ketersediaan jadwal kepada kami.
+                    Terima kasih!
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <div style="text-align: right; padding: 15px;">
+        <p style="margin: 0; font-family: 'Poppins', sans-serif; font-size: 15px; color: #122363;">
+            © 2025 codeD, all rights reserved.</p>
+    </div>
+</footer>
+
+</html>
