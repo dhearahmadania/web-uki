@@ -269,7 +269,7 @@ class UIHandler {
         
         const orderMessage = this.generateOrderMessage(customerName, location, paymentMethod);
         const encodedMessage = encodeURIComponent(orderMessage);
-        const whatsappURL = `https://wa.me/628121555510?text=${encodedMessage}`;
+        const whatsappURL = `https://wa.me/6282312680720?text=${encodedMessage}`;
         
         if (confirm("Anda akan diarahkan ke WhatsApp untuk mengirim pendaftaran. Lanjutkan?")) {
             const newWindow = window.open(whatsappURL, "_blank");
