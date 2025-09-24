@@ -1,26 +1,26 @@
-// Singleton Pattern for FoodManager
-class FoodManager {
+// Singleton Pattern for CourseManager
+class CourseManager {
     constructor() {
-        if (!FoodManager.instance) {
-            this.foods = [
+        if (!CourseManager.instance) {
+            this.courses = [
                 // Mengubah paket makanan menjadi paket kursus stir mobil
-                new Food('Paket Manual Sigra', 400000, './assets/images/manual-sigra.png'),
-                new Food('Paket Matic Ayla', 500000, './assets/images/matic-ayla.png'),
-                new Food('Paket Mix (Manual + Matic)', 550000, './assets/images/paket-mix.png'),
-                new Food('Per Jam (Manual)', 100000, './assets/images/per-jam-manual.png'),
-                new Food('Per Jam (Matic)', 120000, './assets/images/per-jam-matic.png')
+                new Course('Paket Manual Sigra', 400000, './assets/images/manual-sigra.png'),
+                new Course('Paket Matic Ayla', 500000, './assets/images/matic-ayla.png'),
+                new Course('Paket Mix (Manual + Matic)', 550000, './assets/images/paket-mix.png'),
+                new Course('Per Jam (Manual)', 100000, './assets/images/per-jam-manual.png'),
+                new Course('Per Jam (Matic)', 120000, './assets/images/per-jam-matic.png')
             ];
-            FoodManager.instance = this;
+            CourseManager.instance = this;
         }
-        return FoodManager.instance;
+        return CourseManager.instance;
     }
 
-    getFoods() {
-        return this.foods;
+    getCourses() {
+        return this.courses;
     }
 }
 
-class Food {
+class Course {
     constructor(name, price, image) {
         this.name = name;
         this.price = price;
@@ -45,21 +45,21 @@ class Cart {
     }
 
     // Kode ini sekarang mengizinkan penambahan paket yang sama lebih dari satu kali
-    addItem(food) {
-        const item = this.items.find(i => i.food.name === food.name);
+    addItem(course) {
+        const item = this.items.find(i => i.course.name === course.name);
         if (item) {
             item.quantity++;
         } else {
-            this.items.push(new CartItem(food, 1));
+            this.items.push(new CartItem(course, 1));
         }
-        this.totalHarga += food.price;
+        this.totalHarga += course.price;
         this.notify();
     }
 
     // Perbaikan: Mengubah logika agar removeItem menghapus item sepenuhnya
     removeItem(index) {
         const item = this.items[index];
-        this.totalHarga -= (item.food.price * item.quantity);
+        this.totalHarga -= (item.course.price * item.quantity);
         this.items.splice(index, 1);
         this.notify();
     }
@@ -80,17 +80,17 @@ class Cart {
 }
 
 class CartItem {
-    constructor(food, quantity) {
-        this.food = food;
+    constructor(course, quantity) {
+        this.course = course;
         this.quantity = quantity;
     }
 }
 
 // UIHandler as a Subscriber
 class UIHandler {
-    constructor(cart, foodManager) {
+    constructor(cart, courseManager) {
         this.cart = cart;
-        this.foodManager = foodManager;
+        this.courseManager = courseManager;
         this.cart.subscribe(this);
     }
 
@@ -99,13 +99,13 @@ class UIHandler {
     }
 
     generateData() {
-        const foodList = document.getElementById('foodList');
+        const courseList = document.getElementById('courseList');
         const cartList = document.getElementById('cartList');
-        foodList.innerHTML = '';
+        courseList.innerHTML = '';
         cartList.innerHTML = '';
 
-        this.foodManager.getFoods().forEach((food, index) => {
-            foodList.appendChild(this.createFoodCard(food, index));
+        this.courseManager.getCourses().forEach((course, index) => {
+            courseList.appendChild(this.createCourseCard(course, index));
         });
 
         cartList.appendChild(this.createCartTotal());
@@ -119,16 +119,16 @@ class UIHandler {
         cartList.style.display = this.cart.getItems().length ? 'block' : 'none';
     }
 
-    createFoodCard(food, index) {
+    createCourseCard(course, index) {
         let divCard = document.createElement('div');
         divCard.classList.add('card');
 
         let imageData = document.createElement('img');
-        imageData.setAttribute("src", food.image);
+        imageData.setAttribute("src", course.image);
         divCard.appendChild(imageData);
 
         let title = document.createElement('p');
-        title.innerHTML = food.name;
+        title.innerHTML = course.name;
         divCard.appendChild(title);
 
         let hr = document.createElement('hr');
@@ -138,7 +138,7 @@ class UIHandler {
         divAction.classList.add('action');
 
         let spanData = document.createElement('span');
-        spanData.innerHTML = `Rp ${UIHandler.toRupiah(food.price)},00`;
+        spanData.innerHTML = `Rp ${UIHandler.toRupiah(course.price)},00`;
         divAction.appendChild(spanData);
 
         let buttonAdd = document.createElement('button');
@@ -176,16 +176,16 @@ class UIHandler {
         divCardDetail.classList.add('detail');
 
         let imageData = document.createElement('img');
-        imageData.setAttribute("src", item.food.image);
+        imageData.setAttribute("src", item.course.image);
         divCardDetail.appendChild(imageData);
 
-        let foodName = document.createElement('p');
-        foodName.innerHTML = item.food.name;
-        divCardDetail.appendChild(foodName);
+        let courseName = document.createElement('p');
+        courseName.innerHTML = item.course.name;
+        divCardDetail.appendChild(courseName);
 
-        let foodJumlah = document.createElement('span');
-        foodJumlah.innerHTML = item.quantity;
-        divCardDetail.appendChild(foodJumlah);
+        let courseJumlah = document.createElement('span');
+        courseJumlah.innerHTML = item.quantity;
+        divCardDetail.appendChild(courseJumlah);
 
         divCardx.appendChild(divCardDetail);
 
@@ -236,7 +236,7 @@ class UIHandler {
         formDiv.appendChild(inputPayment);
         
         let buttonOrder = document.createElement('button');
-        buttonOrder.onclick = () => this.orderFood();
+        buttonOrder.onclick = () => this.orderCourse();
         buttonOrder.innerHTML = 'DAFTAR SEKARANG';
         buttonOrder.classList.add('submit-button');
         formDiv.appendChild(buttonOrder);
@@ -245,15 +245,15 @@ class UIHandler {
     }
 
     addToCart(index) {
-        const food = this.foodManager.getFoods()[index];
-        this.cart.addItem(food);
+        const course = this.courseManager.getCourses()[index];
+        this.cart.addItem(course);
     }
 
     removeFromCart(index) {
         this.cart.removeItem(index);
     }
 
-    orderFood() {
+    orderCourse() {
         const customerName = document.getElementById('customerName').value.trim();
         const location = document.getElementById('location').value.trim();
         const paymentMethod = document.getElementById('paymentMethod').value.trim();
@@ -307,16 +307,16 @@ class UIHandler {
         
         this.cart.getItems().forEach(item => {
             let packageDetails = '';
-            if (item.food.name.includes('Paket Manual Sigra')) {
+            if (item.course.name.includes('Paket Manual Sigra')) {
                 packageDetails = ' (5 jam, bisa kelipatan)';
-            } else if (item.food.name.includes('Paket Matic Ayla')) {
+            } else if (item.course.name.includes('Paket Matic Ayla')) {
                 packageDetails = ' (5 jam, bisa kelipatan)';
-            } else if (item.food.name.includes('Paket Mix')) {
+            } else if (item.course.name.includes('Paket Mix')) {
                 packageDetails = ' (3x manual + 2x matic)';
-            } else if (item.food.name.includes('Per Jam')) {
+            } else if (item.course.name.includes('Per Jam')) {
                 packageDetails = ` (total ${item.quantity} jam)`;
             }
-            orderMessage += `• ${item.food.name}${packageDetails} x ${item.quantity}\n`;
+            orderMessage += `• ${item.course.name}${packageDetails} x ${item.quantity}\n`;
         });
         orderMessage += `\n*Total Tagihan: Rp${UIHandler.toRupiah(this.cart.getTotalHarga())},00*\n\n`;
         
@@ -330,6 +330,6 @@ class UIHandler {
 }
 
 const cart = new Cart();
-const foodManager = new FoodManager();
-const uiHandler = new UIHandler(cart, foodManager);
+const courseManager = new CourseManager();
+const uiHandler = new UIHandler(cart, courseManager);
 uiHandler.generateData();

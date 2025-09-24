@@ -65,7 +65,7 @@ body {
 /* --- Body (untuk mencegah konten tertutup navbar) --- */
 body {
   padding-top: 80px;
-  /* Sesuaikan nilai ini jika navbar Anda berbeda */
+  /* Sesuaikan nilai navbar */
 }
 
 .navbar img {
